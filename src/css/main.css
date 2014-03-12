@@ -1,0 +1,17 @@
+
+#main-body
+{
+	background:url("/img/pancakes.jpg") !important;
+}
+#main-search{
+	padding-left: 80px !important;
+}
+#container-fluid{
+	padding-top: 20px;
+}
+#button-nav{
+	margin-top: 10px !important;
+}
+.jumbotron {
+	 background-color:transparent;
+}
