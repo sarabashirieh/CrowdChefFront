@@ -49,7 +49,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Crowd Chef</a>
+      <a class="navbar-brand" href="/index.html">Crowd Chef</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

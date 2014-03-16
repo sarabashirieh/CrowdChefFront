@@ -49,7 +49,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Crowd Chef</a>
+       <a class="navbar-brand" href="/index.html">Crowd Chef</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -71,9 +71,18 @@
 </nav>
 
 	<div class="row">
-		<div class="col-md-12 column">
+		<div class="col-md-6 col-md-offset-3">
+      <div class="well well-lg">Guess which wine matches the meal and become a better chef
+       <a class="btn btn-success btn-sm" href="winePlay.php">Start</a>
+      </div>
+		   
 
-		</div>
+      <div class="well well-lg">Help people to choose meals by guessing the taste of the meals
+        <a class="btn btn-success btn-sm" href="tastePlay.php">Start</a>
+      </div>
+      
+
+    </div>
 	</div>
 </div>
 </body>
