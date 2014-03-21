@@ -1,3 +1,4 @@
+ <?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,10 +80,19 @@
 					Share your unique recipes and become a famous chef!
 				</p>
 				<div id="main-search">
-					 <div class="col-xs-4 col-xs-offset-3" >
-	    			  	<input type="search" class="form-control" placeholder="Search recipes">
-	  				</div>  
-	    			 <a class="btn btn-success" href="search.php" id="search-rec">Search</a>
+					 <div class="col-xs-9 col-xs-offset-3" >
+            <form action="/search.php" method="POST" class="form-inline">
+	    			  	<input type="search"  placeholder="Search recipes" name="search" class="form-control">
+	    			    <select class="form-control" name="field">
+                  <option value="name">Title</option>
+                  <option value="description">Description</option>
+                  <option value="tag">Tag</option>
+                  <option value="ingredient">Ingredents</option>
+              </select>
+             <input type="submit" class="btn btn-success" href="search.php" id="search-rec" value=" Search" />
+</form>
+ 
+  </div>  
     			</div>
 			</div>
 		</div>

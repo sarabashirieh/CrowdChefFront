@@ -72,17 +72,21 @@
 
 	<div class="container">
 	<div class="row clearfix">
-		<div class="col-xs-4 col-xs-offset-3" id="login-form">
-			<form role="form">
+		<div class="col-xs-4 col-xs-offset-3" id="login-form" >
+			<form role="form" method="POST" action="login.php">
 				<div class="form-group">
-					 <label for="exampleInputEmail1">Username</label><input type="email" class="form-control" id="exampleInputEmail1" />
+					 <label for="exampleInputEmail1">Username</label><input type="email" class="form-control" id="exampleInputEmail1" name="username"/>
 				</div>
 				<div class="form-group">
-					 <label for="exampleInputPassword1">Password</label><input type="password" class="form-control" id="exampleInputPassword1" />
+					 <label for="exampleInputPassword1">Password</label><input type="password" class="form-control" id="exampleInputPassword1" name="password" />
 				</div>
 				<div class="checkbox">
 				</div> <button type="submit" class="btn btn-success">Login</button>
 			</form>
+            <?php
+       $response = file_get_contents('http://145.94.44.127:8080/CrowdChef/checkUser/'.$_POST['username'].'/'.$_POST['password']);
+       echo $response;
+      ?>
 		</div>
 	</div>
 </div>

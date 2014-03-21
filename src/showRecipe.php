@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,6 +76,7 @@ session_start();
 	<div class="row">
 		<div class="col-md-12 column">
         <?php 
+
         // $postdata = array(
         //   'field' => $_POST['field'],
         //   'query' => $_POST['search']
@@ -95,67 +95,73 @@ session_start();
         //   );
         // $context = stream_context_create($opts);
 
-        $response = file_get_contents('http://crowdchef.herokuapp.com/search/'.$_POST['search'].'/'.$_POST['field']);
-       // print_r($response);
+        // $response = file_get_contents('http://145.94.44.127:8080/CrowdChef/search/'.$_POST['search'].'/'.$_POST['field']);
+        // $obj = json_decode($response);
+
+        // echo $obj[0]->{'name'};
+        $response = file_get_contents('http://crowdchef.herokuapp.com/getRecipeDetails/'.$_SESSION['recipe']);
+       	//decode Json
         $obj = json_decode($response);
-     
-        //echo $obj[0]->{'name'};
-      //  print_r($obj);
+        //get object from stdObj
+        $recipeObj= $obj->result;
 
-        //print_r($obj);
-        //We get the name of the recipe and the name of the ingredients// the old way
-        // foreach($obj as $value) {
-        //   foreach($value as $valName => $val){
-        //     if($valName == 'name'){
-        //       //print_r($val);
-        //       echo $val;
-        //     }
-        //     if($valName == 'ingredients'){
-        //      $obj2 = $val;
-        //      foreach($obj2 as $key =>$ingred ) {
-        //         foreach($ingred as $keyIng => $ingredVal) {
-        //           if($keyIng == 'name') {
-        //             print_r($ingredVal);
-        //           }
-        //          }
-        //       }
-        //     }
-        //   }
-        // }
 
+        //Get all variables from recipe
+		$recipeID = $recipeObj->{'id'};
+ 		$recipeName = $recipeObj->{'name'};
+      	$recipeDescription = $recipeObj->{'description'};
+    	$tags = $recipeObj->{'tags'};
+    	$directions = $recipeObj->{'directions'};
+    	$ingredients = $recipeObj->{'ingredients'};
+    	$createUser = $recipeObj->{'createUser'};
         ?>
         <div class="col-xs-6 col-xs-offset-3">
-        <div class="panel panel-success">
-       <!-- Default panel contents -->
-        <div class="panel-heading">List of recipes</div>
-        <table class="table " >
-            <tr>
-              <th>Title</th>
-              <th>Rank</th>
-            </tr>
-            <tr>
+        	<div class="panel panel-success">
+			  <div class="panel-heading">  	
+			    <h3 class="panel-title"><?echo $recipeName; ?> by <? echo $createUser; ?></h3> 
+			  </div>
+			  <div class="panel-body">
+			  	 <p class="lead">Ingredients:</p><p> <? 
+	        		if ($ingredients !== NULL){
+	        		foreach($ingredients as $ingred ) {
+	        			//print_r($ingredients);
+	                  		echo "<p>";
+	                  		$ingredID = $ingred ->{'id'};
+	                  		echo $ingredName = $ingred ->{'name'};
+	                  		echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	                  		echo $ingredQuantity = $ingred ->{'quantity'};
+	                  		$ingredDescription = $ingred ->{'description'};
+	                  		if($ingredDescription) {
+	                  			echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+	                  			echo $ingredDescription;
+	                  		}
+	                  		echo "<br>";
+	              	}
+	        	}
+			  	  ?> </p>
+			  	 <hr>
+			   <p class="lead">	Description:</p><p> <? echo $recipeDescription; ?> </p>
+			   <hr>
+			   <p class="lead">Directions:</p><p><?echo $directions;?></p>
+			   <hr>
+			   <p class="lead"> Tags:</p> <p><?echo $tags; ?></p>
+			   <hr>
+			   <p class="lead"> Rate this recipe:</p> <p>
 
-              <td>
+    			<!-- begin Rating -->
+					<fieldset class="rating">
+					    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Love this">5 stars</label>
+					    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+					    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+					    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+					    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Bad">1 star</label>
+					</fieldset>
+				<!-- end Rating -->
+				</p>
+			  </div>
 
-                  <?php 
-                      foreach($obj as $value){
-                        foreach ($value as  $value1) {
+			</div>
 
-                              $id = $value1->{'id'};
-                              if($obj !== null){
-                              $_SESSION['recipe'] = $id;
-                            }
-                             // $username = $value1->{'createUser'};
-                              echo "<a href='showRecipe.php'>".$value1->{'name'}."</a>";
-                        }
-                       }
-                  ?>
-              </td>
-              <td></td>
-            </tr>
-        </table>
-      </div>
-    </div>
       </div>
 		</div>
 	</div>
