@@ -1,28 +1,32 @@
-$(document).ready(function(){
-    var next = 1;
-    $(".add-more").click(function(e){
-        e.preventDefault();
-        var addto = "#field" + next;
-        var addRemove = "#field" + (next);
-        next = next + 1;
-        var newIn = '<input autocomplete="off" class="input form-control" id="field' + next + '" name="field' + next + '" type="text">';
-        var newInput = $(newIn);
-        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="field">';
-        var removeButton = $(removeBtn);
-        $(addto).after(newInput);
-        $(addRemove).after(removeButton);
-        $("#field" + next).attr('data-source',$(addto).attr('data-source'));
-        $("#count").val(next);  
-        
-            $('.remove-me').click(function(e){
-                e.preventDefault();
-                var fieldNum = this.id.charAt(this.id.length-1);
-                var fieldID = "#field" + fieldNum;
-                $(this).remove();
-                $(fieldID).remove();
-            });
-    });
-    
+$(document).ready(function() {
 
-    
+$(".add").click(function() {
+    var child = $('#field').clone(true);
+    child = $(child);
+    console.log(child);
+    child.find(':nth-child(1)').val("");
+    child.find(':nth-child(2)').val("");
+    child.find(':nth-child(3)').val("");
+    child.insertAfter('#field');
+    //console.log($bla);
+    return false;
 });
+
+$(".remove").click(function() {
+    $(this).parent().remove();
+});
+
+$("#form_id").live('submit',function(){
+    if($(this).find('#username').val()==''){
+        alert('username cant left empty!!');
+        return false;
+    }
+});
+$("#fancyform").live('submit', function(){
+    $(this).find('#fields').val();
+});
+
+
+});
+
+

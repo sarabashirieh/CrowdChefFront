@@ -81,68 +81,87 @@ session_start();
         -->
         <!-- {"result":{"id":35,"name":"Perfect","description":"pasta koken, kip koken, alles mengen!","tags":"lekker, chiken","directions":"Milano","createTime":"Mar 24, 2014 5:00:54 PM","ingredients":[{"id":49,"name":"chicken","quantity":"200 gr"},{"id":50,"name":"pasta","quantity":"400 gr"}],"rating":2.5,"createUser":":sarah"},"successful":true} -->
        <!-- begin form -->
-        <form role="form" method="POST" action="/addRecipe.php.php">
+        <form role="form" method="POST" action="/addRecipe.php" id="fancyform">
+          
           <div class="form-group">
             <label for="recipeName">Recipe title</label>
-            <input type="text" class="form-control" id="recipeName" name="recipeName" placeholder="Enter recipe title">
+            <input type="text" class="form-control" id="recipeName" name="recipe-name" placeholder="Enter recipe title">
           </div>
           <div class="form-group">
-            <label for="description">Recipe title</label>
-            <input type="text" class="form-control" id="description" name="description" placeholder="Enter recipe description">
+            <label for="description">Recipe Description</label>
+            <textarea type="text" class="form-control" id="description" name="recipe-description" placeholder="Enter recipe description">
+            </textarea>
           </div>
-          <div class="form-group">
-            <input type="hidden" name="count" value="1" />
              <div class="control-group" id="fields">
             <label class="control-label" for="field1">Ingredients</label>
-            <div class="controls" id="profs"> 
-               
-                    <div id="field" name="ingredients"><input autocomplete="off" class="form-control" id="field1" name="prof1" type="text" placeholder="Type something" data-items="8"/><button id="b1" class="btn add-more" type="button">+</button></div>
-           
-            <br>
+              <div class="form-group form-inline" id="field" name="ingred">
+                <input type="text" class="form-control ingredName"  placeholder="Name"><input type="text" class="form-control ingredQuantity" placeholder="Quantity"><input type="text" class="form-control ingredDesciption" placeholder="Description" >
+              </div>
+              <button id="b1" class="btn btn-info add pull-right" type="button">+</button>
             </div>
-        </div>
+            <div class="form-group">
+            <label for="description">Recipe tags</label>
+            <input type="text" class="form-control" id="recipe-tags" name="recipe-tags" placeholder="Enter recipe tags">
           </div>
+            <div class="form-group">
+            <label for="description">Direction</label>
+            <textarea type="text" class="form-control" id="recipe-direction" name="recipe-direction">
+            </textarea>
           </div>
-        <button type="submit" class="btn btn-success">Submit</button>
+            <input type="hidden" class="form-control" id="user-id" name="user-id" value='12'>
+          <button type="submit" class="btn btn-success pull-right" name="submit">Submit</button>
+          </div>
+        
     </form>
       <!-- end form -->
              <?php 
-        // $postdata = array(
-        //   'name' => 'sosis',
-        //   //'description' => $_POST['search'],
-        //   'description' => 'pasta koken, kip koken, alles mengen!',
-        //   'tags' => 'lekker, chiken',
-        //   'directions' => 'Milano',
-        //     'ingredients' => array(
-        //       array(
-        //         'name' => 'chicken',
-        //       'quantity' => '200 gr'
-        //         ),
-        //       array(
-        //          'name' => 'pasta',
-        //           'quantity' => '400 gr'
+           if ( isset( $_POST['submit'])){ 
+            //echo "hello";
+            // print_r($_POST['recipe-name']);
+            //  print_r($_POST['recipe-description']);
+            //   print_r($_POST['recipe-tags']);
+            //    print_r($_POST['recipe-direction']);
+
+
+
+    
+
+        $postdata = array(
+          'name' => $_POST['recipe-name'],
+          //'description' => $_POST['search'],
+          'description' => $_POST['recipe-description'],
+          'tags' => $_POST['recipe-tags'],
+          'directions' => $_POST['recipe-direction'],
+            'ingredients' => array(
+              array(
+                'name' => 'chicken',
+              'quantity' => '200 gr'
+                ),
+              array(
+                 'name' => 'pasta',
+                  'quantity' => '400 gr'
                 
-        //       )),
-        //   'userId' => '12'
-        //   );
-        // $opts = array( 'http' => 
-        //   array(
-        //     'method' => 'POST',
-        //     'header' => 'Content-Type: application/json',
-        //     'content' =>json_encode($postdata)
-        //     )
-        //   );
-       // $context = stream_context_create($opts);
-       //$result = file_get_contents('http://crowdchef.herokuapp.com/addRecipe', false, $context);
+              )),
+          'userId' => '5'
+          );
+        $opts = array( 'http' => 
+          array(
+            'method' => 'POST',
+            'header' => 'Content-Type: application/json',
+            'content' =>json_encode($postdata)
+            )
+          );
+       $context = stream_context_create($opts);
+       $result = file_get_contents('http://crowdchef.herokuapp.com/addRecipe', false, $context);
 
        // $obj = json_decode($response);
   
         //echo $obj[0]->{'name'};
-      // print_r( $opts);
-      // echo"result:";
-      //  print_r( $result);
+      print_r( $opts);
+      echo"result:";
+       print_r( $result);
 
-
+}
         ?> 
       </div>
 		</div>
