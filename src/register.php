@@ -1,3 +1,6 @@
+ <?php 
+ session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,7 +92,8 @@
     </form>
       <!-- end form -->
       <?php
-       $response = file_get_contents('http://145.94.44.127:8080/CrowdChef/registerUser/'.$_POST['username'].'/'.$_POST['password1']);
+       $response = file_get_contents('http://145.94.44.127:8080/CrowdChef/registerUser/:'.$_POST['username'].'/:'.$_POST['password1']);
+       print_r($response);
       ?>
 		</div>
 	</div>

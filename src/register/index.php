@@ -1,7 +1,6 @@
-<?php
-session_start();
-
-?>
+ <?php 
+ session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,10 +64,8 @@ session_start();
       </ul> -->
       <ul class="nav navbar-nav navbar-right">
       	 <div class="button-group" id="button-nav">
-          <a class="btn" href="addRecipe.php">Add a recipe</a>
-          <a class="btn" href="#">Just for you</a>
-          <a class="btn" href="/play.php">Play</a>
-          <a class="btn" href="#">Profile</a>
+         <a class="btn btn-success btn-sm" href="/register">Sign up</a>
+           <a class="btn btn-info btn-sm" href="/login">Login</a>
 		</div>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -76,90 +73,28 @@ session_start();
 </nav>
 
 	<div class="row">
-		<div class="col-md-12 column">
-        <?php 
-        // $postdata = array(
-        //   'field' => $_POST['field'],
-        //   'query' => $_POST['search']
-
-        //   );
-
-
-
-        // $opts = array( 'http' => 
-        //   array (
-        //     'method' => 'POST',
-        //     'header' => 'Content-type: application/x-www-form-urlencoded',
-        //     'content' => json_encode($postdata)
-        //     )
-
-        //   );
-        // $context = stream_context_create($opts);
-
-        $response = file_get_contents('http://crowdchef.herokuapp.com/search/'.$_POST['search'].'/'.$_POST['field']);
-       // print_r($response);
-        $obj = json_decode($response);
-     
-        //echo $obj[0]->{'name'};
-      //  print_r($obj);
-
-        //print_r($obj);
-        //We get the name of the recipe and the name of the ingredients// the old way
-        // foreach($obj as $value) {
-        //   foreach($value as $valName => $val){
-        //     if($valName == 'name'){
-        //       //print_r($val);
-        //       echo $val;
-        //     }
-        //     if($valName == 'ingredients'){
-        //      $obj2 = $val;
-        //      foreach($obj2 as $key =>$ingred ) {
-        //         foreach($ingred as $keyIng => $ingredVal) {
-        //           if($keyIng == 'name') {
-        //             print_r($ingredVal);
-        //           }
-        //          }
-        //       }
-        //     }
-        //   }
-        // }
-
-        ?>
-        <div class="col-xs-6 col-xs-offset-3">
-        <div class="panel panel-success">
-       <!-- Default panel contents -->
-        <div class="panel-heading">List of recipes</div>
-        <table class="table " >
-            <tr>
-              <th>Title</th>
-              <th>Rank</th>
-            </tr>
-            <?php 
-            foreach($obj as $value){
-              foreach ($value as  $value1){
-              echo '<tr>
-              <td>';
-              echo "<a href='showRecipe.php?id=".$value1->{'id'}."'>".$value1->{'name'}."</a>";
-            echo'</td>
-              <td> 
-              </td>
-            </tr>';
-              }
-            }
-            ?>
-                      
-
-
-                              
-                        
-                       
-           <endforeach;>
-                  <endforeach;>
-            
-        </table>
-      </div>
-    </div>
-      </div>
+		<div class="col-md-6 col-md-offset-3">
+      <!-- begin form -->
+        <form role="form" method="POST" action="/register.php">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" name="username" placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password1" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword2">Repeat password</label>
+            <input type="password" class="form-control" id="exampleInputPassword2" name="password2" placeholder="Repeat password">
+          </div>
+        <button type="submit" class="btn btn-success">Sign up</button>
+    </form>
+      <!-- end form -->
+      <?php
+       $response = file_get_contents('http://145.94.44.127:8080/CrowdChef/registerUser/:'.$_POST['username'].'/:'.$_POST['password1']);
+       print_r($response);
+      ?>
 		</div>
 	</div>
 </div>

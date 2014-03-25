@@ -34,7 +34,7 @@ session_start();
 <script src="http://code.jquery.com/jquery-latest.min.js"
         type="text/javascript"></script><!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-
+<script src="js/main.js" type="text/javascript"></script>
 	
 	
 	
@@ -75,58 +75,75 @@ session_start();
 </nav>
 
 	<div class="row">
-		<div class="col-md-12 column">
+		    <div class="col-md-6 col-md-offset-3">
        <!-- 
        {"id":11,"name":"Regular donner","description":"Alleen vlees","tags":"donner,kebap,vlees","directions":"Just ask the Turkish guy","createTime":"Mar 19, 2014 6:11:33 PM","ingredients":[{"id":43,"name":"beef","quantity":"200 g","ord":1},{"id":44,"name":"hot sauce","description":"not too hot","quantity":"10 mL","ord":2}]}],"successful":true}
         -->
-        <?php 
-        $postdata = array(
-          'name' => 'perfect pasta',
-          //'description' => $_POST['search'],
-          'description' => 'bla',
-          'tags' => 'lekker',
-          'directions' => 'Milano',
-          'ingredients' => '[{"id":48,"name":"beef & ","quantity":"200 g","ord":1},{"id":44,"name":"hot sauce","description":"not too hot","quantity":"10 mL","ord":2}]}]',
-          'createUser' => 'john'
-          );
-        $opts = array( 'http' => 
-          array (
-            'method' => 'POST',
-            'header' => 'Content-type: application/x-www-form-urlencoded',
-            'content' => json_encode($postdata)
-            )
-          );
-        $context = stream_context_create($opts);
-       $response = file_get_contents('http://crowdchef.herokuapp.com/addRecipe', $context);
+        <!-- {"result":{"id":35,"name":"Perfect","description":"pasta koken, kip koken, alles mengen!","tags":"lekker, chiken","directions":"Milano","createTime":"Mar 24, 2014 5:00:54 PM","ingredients":[{"id":49,"name":"chicken","quantity":"200 gr"},{"id":50,"name":"pasta","quantity":"400 gr"}],"rating":2.5,"createUser":":sarah"},"successful":true} -->
+       <!-- begin form -->
+        <form role="form" method="POST" action="/addRecipe.php.php">
+          <div class="form-group">
+            <label for="recipeName">Recipe title</label>
+            <input type="text" class="form-control" id="recipeName" name="recipeName" placeholder="Enter recipe title">
+          </div>
+          <div class="form-group">
+            <label for="description">Recipe title</label>
+            <input type="text" class="form-control" id="description" name="description" placeholder="Enter recipe description">
+          </div>
+          <div class="form-group">
+            <input type="hidden" name="count" value="1" />
+             <div class="control-group" id="fields">
+            <label class="control-label" for="field1">Ingredients</label>
+            <div class="controls" id="profs"> 
+               
+                    <div id="field" name="ingredients"><input autocomplete="off" class="form-control" id="field1" name="prof1" type="text" placeholder="Type something" data-items="8"/><button id="b1" class="btn add-more" type="button">+</button></div>
+           
+            <br>
+            </div>
+        </div>
+          </div>
+          </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+      <!-- end form -->
+             <?php 
+        // $postdata = array(
+        //   'name' => 'sosis',
+        //   //'description' => $_POST['search'],
+        //   'description' => 'pasta koken, kip koken, alles mengen!',
+        //   'tags' => 'lekker, chiken',
+        //   'directions' => 'Milano',
+        //     'ingredients' => array(
+        //       array(
+        //         'name' => 'chicken',
+        //       'quantity' => '200 gr'
+        //         ),
+        //       array(
+        //          'name' => 'pasta',
+        //           'quantity' => '400 gr'
+                
+        //       )),
+        //   'userId' => '12'
+        //   );
+        // $opts = array( 'http' => 
+        //   array(
+        //     'method' => 'POST',
+        //     'header' => 'Content-Type: application/json',
+        //     'content' =>json_encode($postdata)
+        //     )
+        //   );
+       // $context = stream_context_create($opts);
+       //$result = file_get_contents('http://crowdchef.herokuapp.com/addRecipe', false, $context);
 
        // $obj = json_decode($response);
-     
+  
         //echo $obj[0]->{'name'};
-      //  print_r($obj);
+      // print_r( $opts);
+      // echo"result:";
+      //  print_r( $result);
 
-        //print_r($obj);
-        //We get the name of the recipe and the name of the ingredients// the old way
-        // foreach($obj as $value) {
-        //   foreach($value as $valName => $val){
-        //     if($valName == 'name'){
-        //       //print_r($val);
-        //       echo $val;
-        //     }
-        //     if($valName == 'ingredients'){
-        //      $obj2 = $val;
-        //      foreach($obj2 as $key =>$ingred ) {
-        //         foreach($ingred as $keyIng => $ingredVal) {
-        //           if($keyIng == 'name') {
-        //             print_r($ingredVal);
-        //           }
-        //          }
-        //       }
-        //     }
-        //   }
-        // }
 
-        ?>
-
+        ?> 
       </div>
 		</div>
 	</div>

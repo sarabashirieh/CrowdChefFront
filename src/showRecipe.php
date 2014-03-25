@@ -99,7 +99,8 @@ session_start();
         // $obj = json_decode($response);
 
         // echo $obj[0]->{'name'};
-        $response = file_get_contents('http://crowdchef.herokuapp.com/getRecipeDetails/'.$_SESSION['recipe']);
+        $id = htmlspecialchars($_GET["id"]);
+        $response = file_get_contents('http://crowdchef.herokuapp.com/getRecipeDetails/'.$id);
        	//decode Json
         $obj = json_decode($response);
         //get object from stdObj
