@@ -95,17 +95,23 @@ session_start();
              <div class="control-group" id="fields">
             <label class="control-label" for="field1">Ingredients</label>
               <div class="form-group form-inline" id="field" name="ingred">
-                <input type="text" class="form-control ingredName"  placeholder="Name"><input type="text" class="form-control ingredQuantity" placeholder="Quantity"><input type="text" class="form-control ingredDesciption" placeholder="Description" >
+                <input type="text" id="ingredient-name" class="form-control ingredName"  placeholder="Name"><input type="text" class="form-control ingredQuantity" id="ingredient-quantity"  placeholder="Quantity"><input type="text" class="form-control ingredDesciption" id="ingredient-description"  placeholder="Description" >
+                 <input type="hidden" id="hidden-name"="form-control ingredName "  name="ingredients" placeholder="Name">
+                 <br>
+                 <br>Number of ingredients added <span id="numIngredient"> 0 </span>
+                 <!-- <input type="hidden" id="hidden-quantity"class="form-control ingredQuantity" placeholder="Quantity"><input type="hidden" id="hidden-desciption"class="form-control ingredDesciption" placeholder="Description" >
+                 -->
               </div>
-              <button id="b1" class="btn btn-info add pull-right" type="button">+</button>
+
+              <button id="b1" onclick="addrecipe()" class="btn btn-info add pull-right" type="button">+</button>
             </div>
             <div class="form-group">
-            <label for="description">Recipe tags</label>
+            <label for="tags">Recipe tags</label>
             <input type="text" class="form-control" id="recipe-tags" name="recipe-tags" placeholder="Enter recipe tags">
           </div>
             <div class="form-group">
-            <label for="description">Direction</label>
-            <textarea type="text" class="form-control" id="recipe-direction" name="recipe-direction">
+            <label for="direction">Direction</label>
+            <textarea type="text" class="form-control" id="recipe-direction" name="recipe-direction" placeholder="Enter recipe direction">
             </textarea>
           </div>
             <input type="hidden" class="form-control" id="user-id" name="user-id" value='12'>
@@ -121,7 +127,7 @@ session_start();
             //  print_r($_POST['recipe-description']);
             //   print_r($_POST['recipe-tags']);
             //    print_r($_POST['recipe-direction']);
-
+           // print_r($_POST['ingredients']);
 
 
     
@@ -132,22 +138,14 @@ session_start();
           'description' => $_POST['recipe-description'],
           'tags' => $_POST['recipe-tags'],
           'directions' => $_POST['recipe-direction'],
-            'ingredients' => array(
-              array(
-                'name' => 'chicken',
-              'quantity' => '200 gr'
-                ),
-              array(
-                 'name' => 'pasta',
-                  'quantity' => '400 gr'
-                
-              )),
-          'userId' => '5'
+            'ingredients' => json_decode($_POST['ingredients']),
+          'userId' => '1'
           );
         $opts = array( 'http' => 
           array(
             'method' => 'POST',
-            'header' => 'Content-Type: application/json',
+          //  'header' => 'Content-Type: application/json',
+            'header' => 'Content-type: application/x-www-form-urlencoded',
             'content' =>json_encode($postdata)
             )
           );

@@ -105,8 +105,7 @@ session_start();
         $obj = json_decode($response);
         //get object from stdObj
         $recipeObj= $obj->result;
-
-
+       
         //Get all variables from recipe
 		$recipeID = $recipeObj->{'id'};
  		$recipeName = $recipeObj->{'name'};

@@ -132,27 +132,57 @@ session_start();
         <table class="table " >
             <tr>
               <th>Title</th>
-              <th>Rank</th>
+              <th>Rating</th>
             </tr>
             <?php 
-            foreach($obj as $value){
-              foreach ($value as  $value1){
+            foreach($obj as $valuee){
+              foreach ($valuee as  $value1){
+                $res = $value1->{'rating'};
               echo '<tr>
               <td>';
               echo "<a href='showRecipe.php?id=".$value1->{'id'}."'>".$value1->{'name'}."</a>";
             echo'</td>
               <td> 
+             ';
+             if($res->value == 5){
+              echo ' <!-- begin Rating -->
+          <fieldset class="rating1">
+              <input type="radio" id="star5"   /><label for="star5" title="Love this">5 stars</label>
+              <label type="radio" id="star4"  value="4" ></label><label for="star4" title="Pretty good">4 stars</label>
+              <input type="radio" id="star3"  value="3" /><label for="star3" title="Meh">3 stars</label>
+              <input type="radio" id="star2"  value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+              <input type="radio" id="star1"  value="1" /><label for="star1" title="Bad">1 star</label>
+          </fieldset>
+        <!-- end Rating -->';
+             }
+             elseif($res->value == 4){
+
+              echo '<fieldset class="rating1"><input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+              <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+              <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+              <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Bad">1 star</label></fieldset>';
+             }
+             elseif($res->value == 3){
+              echo '<fieldset class="rating1"><input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+              <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+              <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Bad">1 star</label></fieldset>';
+             }
+              elseif($res->value == 2){
+              echo '<fieldset class="rating1"><input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+              <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Bad">1 star</label></fieldset>';
+             }
+              elseif($res->value == 1){
+              echo '<fieldset class="rating1"><input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Bad">1 star</label></fieldset>';
+             }
+             else{
+              echo'No tanking';
+             }
+             echo'
               </td>
             </tr>';
               }
             }
             ?>
-                      
-
-
-                              
-                        
-                       
            <endforeach;>
                   <endforeach;>
             

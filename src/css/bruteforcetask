@@ -1,0 +1,250 @@
+<style>
+span{
+    cursor:pointer;
+    color:#00ff00;
+}
+span:hover{
+      color:#000; 
+}
+</style>
+<!--
+Values
+sweet,sour,savoury,salty,bitter,spicy
+-->
+<br>
+<div class="span8">
+    <legend>
+        <bruteforce>name</bruteforce>
+    </legend>
+    <h4>Description</h4>
+    <bruteforce>description</bruteforce>
+
+    <h4>Directions</h4>
+    <bruteforce>directions</bruteforce>   
+    
+        
+   <h4>Ingredients</h4>
+    <div class="btn" id="ingButton"  onclick="populateIng()">Click here to see Ingredients</div>
+    <div id="ingredients-view"></div>
+    <input type="hidden" id="ingredients" value='<bruteforce>ingredients</bruteforce>' >
+    <br />
+    <form id="bruteforce">
+        <br />
+            <br />
+             Sweet<br />
+      <div class="pagination">
+        <ul>
+        <li><span onclick="sweetClick(1)">1</span></li>
+        <li><span onclick="sweetClick(2)">2</span></li>
+        <li><span onclick="sweetClick(3)">3</span></li>
+        <li><span onclick="sweetClick(4)">4</span></li>
+        <li><span onclick="sweetClick(5)">5</span></li>
+        <li><span onclick="sweetClick(6)">6</span></li>
+        <li><span onclick="sweetClick(7)">7</span></li>
+        <li><span onclick="sweetClick(8)">8</span></li>
+        <li><span onclick="sweetClick(9)">9</span></li>
+        <li><span onclick="sweetClick(10)">10</span></li>
+    </ul>
+    </div>
+        <div id="sour">Sour</div>
+         <div class="pagination">
+        <ul>
+        <li><span onclick="sourClick(1)">1</span></li>
+        <li><span onclick="sourClick(2)">2</span></li>
+        <li><span onclick="sourClick(3)">3</span></li>
+        <li><span onclick="sourClick(4)">4</span></li>
+        <li><span onclick="sourClick(5)">5</span></li>
+        <li><span onclick="sourClick(6)">6</span></li>
+        <li><span onclick="sourClick(7)">7</span></li>
+        <li><span onclick="sourClick(8)">8</span></li>
+        <li><span onclick="sourClick(9)">9</span></li>
+        <li><span onclick="sourClick(10)">10</span></li>
+    </ul>
+    </div>  
+        <div id="savory">Savory</div>
+           <div class="pagination">
+        <ul>
+               <li><span onclick="savouryClick(1)">1</span></li>
+        <li><span onclick="savouryClick(2)">2</span></li>
+        <li><span onclick="savouryClic(3)">3</span></li>
+        <li><span onclick="savouryClick(4)">4</span></li>
+        <li><span onclick="savouryClick(5)">5</span></li>
+        <li><span onclick="savouryClick(6)">6</span></li>
+        <li><span onclick="savouryClick(7)">7</span></li>
+        <li><span onclick="savouryClick(8)">8</span></li>
+        <li><span onclick="savouryClick(9)">9</span></li>
+        <li><span onclick="savouryClick(10)">10</span></li>
+  
+    </ul>
+    </div>
+        
+            <div id="salty">Salty</div>
+         <div class="pagination">
+        <ul>
+        <li><span onclick="saltyClick(1)">1</span></li>
+        <li><span onclick="saltyClick(2)">2</span></li>
+        <li><span onclick="saltyClick(3)">3</span></li>
+        <li><span onclick="saltyClick(4)">4</span></li>
+        <li><span onclick="saltyClick(5)">5</span></li>
+        <li><span onclick="saltyClick(6)">6</span></li>
+        <li><span onclick="saltyClick(7)">7</span></li>
+        <li><span onclick="saltyClick(8)">8</span></li>
+        <li><span onclick="saltyClick(9)">9</span></li>
+        <li><span onclick="saltyClick(10)">10</span></li>
+    </ul>
+    </div>
+        
+        <div id="sour">Bitter</div>
+         <div class="pagination">
+        <ul>
+        <li><span onclick="bitterClick(1)">1</span></li>
+        <li><span onclick="bitterClick(2)">2</span></li>
+        <li><span onclick="bitterClick(3)">3</span></li>
+        <li><span onclick="bitterClick(4)">4</span></li>
+        <li><span onclick="bitterClick(5)">5</span></li>
+        <li><span onclick="bitterClick(6)">6</span></li>
+        <li><span onclick="bitterClick(7)">7</span></li>
+        <li><span onclick="bitterClick(8)">8</span></li>
+        <li><span onclick="bitterClick(9)">9</span></li>
+        <li><span onclick="bitterClick(10)">10</span></li>
+    </ul>
+    </div>
+        
+        <div id="spicy">Spicy</div>
+         <div class="pagination">
+        <ul>
+        <li><span onclick="spicyClick(1)">1</span></li>
+        <li><span onclick="spicyClick(2)">2</span></li>
+        <li><span onclick="spicyClick(3)">3</span></li>
+        <li><span onclick="spicyClick(4)">4</span></li>
+        <li><span onclick="spicyClick(5)">5</span></li>
+        <li><span onclick="spicyClick(6)">6</span></li>
+        <li><span onclick="spicyClick(7)">7</span></li>
+        <li><span onclick="spicyClick(8)">8</span></li>
+        <li><span onclick="spicyClick(9)">9</span></li>
+        <li><span onclick="spicyClick(10)">10</span></li>
+    </ul>
+    </div>
+              
+         <input type="hidden" id="sweet-value" name="sweet" />
+        <input type="hidden" id="sour-value" name="sour" />
+        <input type="hidden" id="savoury-value" name="savoury" />
+        <input type="hidden" id="salty-value" name="salty" />
+        <input type="hidden" id="bitter-value" name="bitter" />
+        <input type="hidden" id="spicy-value" name="spicy" />
+        <br />
+        
+      
+        <br />
+        Sweet
+        <div  class="progress">
+    <div id="sweet-progress" class="bar" style="width: 0%;"></div>
+    </div>
+        
+        Sour
+        <div  class="progress">
+    <div id="sour-progress" class="bar" style="width: 0%;"></div>
+    </div>
+        
+          Savoury
+        <div  class="progress">
+    <div id="savoury-progress" class="bar" style="width: 0%;"></div>
+    </div>
+  <br />
+        Salty
+        <div  class="progress">
+    <div id="salty-progress" class="bar" style="width: 0%;"></div>
+    </div>
+  <br />
+
+        Bitter
+        <div  class="progress">
+    <div id="bitter-progress" class="bar" style="width: 0%;"></div>
+    </div>
+  <br />
+        
+        Spicy
+        <div  class="progress">
+    <div id="spicy-progress" class="bar" style="width: 0%;"></div>
+    </div>
+  <br />
+            <br />
+        <br />
+        <input type="submit" class="btn" name="submit" value="Submit" />
+    </form>
+    </div>
+    <script>
+    function populateIng()
+{
+
+  var ingreds = [];
+  ingreds = JSON.parse(document.getElementById('ingredients').value);
+    
+    for(var i in ingreds)
+    {
+        var jsobObj = {};
+        jsobObj = JSON.parse(i);
+ document.getElementById("ingredients-view").innerHTML=document.getElementById("ingredients-view").innerHTML+String(ingreds[i].name)+"<br />" ;
+        
+    }
+        
+    document.getElementById("ingButton").style.display = "none";
+
+}
+
+function sweetClick(that)
+{
+document.getElementById('sweet-value').value=that
+updateValues();
+}
+
+function sourClick(that)
+{
+document.getElementById('sour-value').value=that
+updateValues();
+}
+
+function savouryClick(that)
+{
+document.getElementById('savoury-value').value=that
+updateValues();
+}
+
+function saltyClick(that)
+{
+document.getElementById('salty-value').value=that
+updateValues();
+}
+
+function bitterClick(that)
+{
+document.getElementById('bitter-value').value=that
+updateValues();
+}
+
+function spicyClick(that)
+{
+document.getElementById('spicy-value').value=that
+updateValues();
+}
+
+function updateValues()
+{
+    var sweet = document.getElementById("sweet-value").value;
+    document.getElementById("sweet-progress").style.width=sweet/10*100+"%";
+      var sour = document.getElementById("sour-value").value;
+    document.getElementById("sour-progress").style.width=sour/10*100+"%";
+    
+      var savoury = document.getElementById("savoury-value").value;
+    document.getElementById("savoury-progress").style.width=savoury/10*100+"%";
+    
+     var salty = document.getElementById("salty-value").value;
+    document.getElementById("salty-progress").style.width=salty/10*100+"%";
+    
+       var bitter = document.getElementById("bitter-value").value;
+    document.getElementById("bitter-progress").style.width=bitter/10*100+"%";
+    
+       var spicy = document.getElementById("spicy-value").value;
+    document.getElementById("spicy-progress").style.width=spicy/10*100+"%";
+}
+    </script>

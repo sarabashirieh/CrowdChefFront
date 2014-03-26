@@ -72,6 +72,7 @@
 
 	<div class="row">
 		<div class="col-md-12 column">
+<iframe src="http://bruteforce.in/pluggable.php?taskId=7b817e36-4dc5-4f9b-9c28-1339c73300b7" style="width:900px;height:800px;border:0px;"></iframe>
 
 		</div>
 	</div>
