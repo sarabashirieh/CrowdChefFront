@@ -1,5 +1,13 @@
 <?php
 session_start();
+echo "hello";
+echo $_SESSION['userID'];
+$userID = $_SESSION['userID'];
+if(!isset($_SESSION['userID'])){
+
+$userID = 1;
+echo $userID;
+}
 
 ?>
 <!DOCTYPE html>
@@ -53,7 +61,7 @@ session_start();
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/index.html">Crowd Chef</a>
+      <a class="navbar-brand" href="/index.php">Crowd Chef</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -100,8 +108,13 @@ session_start();
        // print_r($response);
         $obj = json_decode($response);
      
-        //echo $obj[0]->{'name'};
-      //  print_r($obj);
+      //   echo "vayy";
+      //   echo "search";
+      //   print_r($_POST['search']);
+      //   echo"response";
+      //   print_r($response);
+
+      // print_r($obj);
 
         //print_r($obj);
         //We get the name of the recipe and the name of the ingredients// the old way
@@ -144,16 +157,16 @@ session_start();
             echo'</td>
               <td> 
              ';
+//              print_r($value1->{'rating'}->value);
+// echo "string";
+//              print_r($res->value);
              if($res->value == 5){
-              echo ' <!-- begin Rating -->
-          <fieldset class="rating1">
-              <input type="radio" id="star5"   /><label for="star5" title="Love this">5 stars</label>
-              <label type="radio" id="star4"  value="4" ></label><label for="star4" title="Pretty good">4 stars</label>
-              <input type="radio" id="star3"  value="3" /><label for="star3" title="Meh">3 stars</label>
-              <input type="radio" id="star2"  value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-              <input type="radio" id="star1"  value="1" /><label for="star1" title="Bad">1 star</label>
-          </fieldset>
-        <!-- end Rating -->';
+               echo '<fieldset class="rating1"><input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Pretty good">5 stars</label>
+              <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+              <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
+              <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+              <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Bad">1 star</label></fieldset>';
+             
              }
              elseif($res->value == 4){
 
@@ -175,7 +188,7 @@ session_start();
               echo '<fieldset class="rating1"><input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Bad">1 star</label></fieldset>';
              }
              else{
-              echo'No tanking';
+              echo'No ranting available';
              }
              echo'
               </td>

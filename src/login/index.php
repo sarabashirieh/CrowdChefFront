@@ -1,6 +1,16 @@
- <?php 
- session_start();
- ?>
+<?php
+session_start();
+echo "hello";
+echo $_SESSION['userID'];
+$userID = $_SESSION['userID'];
+if(!isset($_SESSION['userID'])){
+
+$userID = 1;
+echo $userID;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +49,7 @@
 	
 </head>
 
-<body id="main-body">
+<body>
 
 <div class="container" id="container-fluid">
 	<nav class="navbar navbar-default" role="navigation" >
@@ -64,41 +74,79 @@
       </ul> -->
       <ul class="nav navbar-nav navbar-right">
       	 <div class="button-group" id="button-nav">
-	       <a class="btn btn-success btn-sm" href="/register">Sign up</a>
-           <a class="btn btn-info btn-sm" href="/login.php">Login</a>
+          <a class="btn" href="#">Just for you</a>
+          <a class="btn" href="/play.php">Play</a>
+          <a class="btn" href="#">Profile</a>
 		</div>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
-	<div class="row">
-		<div class="col-md-12 column">
-			<div class="jumbotron" id="main-jumbotron">
-				<h1 class = "text-center" style="color:white">
-					Crowd Chef
-				</h1>
-				<p class = "text-center" style="color:white">
-					Share your unique recipes and become a famous chef!
-				</p>
-				<div id="main-search">
-					 <div class="col-xs-9 col-xs-offset-3" >
-            <form action="/search.php" method="POST" class="form-inline">
-	    			  	<input type="search"  placeholder="Search recipes" name="search" class="form-control">
-	    			    <select class="form-control" name="field">
-                  <option value="name">Title</option>
-                  <option value="description">Description</option>
-                  <option value="tag">Tag</option>
-                  <option value="ingredient">Ingredents</option>
-              </select>
-             <input type="submit" class="btn btn-success" href="search.php" id="search-rec" value=" Search" />
-</form>
+	<div class="container">
+	<div class="row clearfix">
+		<div class="col-xs-4 col-xs-offset-3" id="login-form" >
 
-  </div>  
-    			</div>
-			</div>
+
+       <?php if (isset( $_POST['submit']) && !empty($_POST['username']) && !empty($_POST['password1'])) { 
+       // echo "string";
+        print_r($username = $_POST['username']);
+        print_r($pass = $_POST['password1']);
+          echo"I'm recently added to DB";
+        $response = file_get_contents('http://crowdchef.herokuapp.com/registerUser/'.$_POST['username'].'/'.$_POST['password1']);
+
+      // $responseUserID= file_get_contents('http://crowdchef.herokuapp.com/checkUser/'.$username.'/'.$pass);
+       print_r($response);
+     //  echo "response2";
+       //print_r($responseUserID);
+    //   header('Location: http://localhost/index.html');
+   }
+      ?>
+
+
+<form role="form" method="POST" action="/index.php">
+        Welcome to crowdchef, please login to continue
+<div class="form-group">
+           <label for="exampleInputEmail1">Username</label><input type="email" class="form-control" id="exampleInputEmail1" name="username"/>
+        </div>
+        <div class="form-group">
+           <label for="exampleInputPassword1">Password</label><input type="password" class="form-control" id="exampleInputPassword1" name="password" />
+        </div>
+        <div class="checkbox">
+        </div> 
+        <button type="submit" class="btn btn-success" name='login'>Login</button>
+      </form>
+
+
+       
+      
+<!-- <form role="form" method="POST" action="login.php">
+        Welcome to crowdchef, please login to continue..
+        <div class="form-group">
+           <label for="exampleInputEmail1">Username</label><input type="email" class="form-control" id="exampleInputEmail1" name="username"/>
+        </div>
+        <div class="form-group">
+           <label for="exampleInputPassword1">Password</label><input type="password" class="form-control" id="exampleInputPassword1" name="password" />
+        </div>
+        <div class="checkbox">
+        </div> <button type="submit" class="btn btn-success">Login</button>
+      </form> -->
 		</div>
 	</div>
 </div>
+</div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+

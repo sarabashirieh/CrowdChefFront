@@ -42,5 +42,7 @@ function addrecipe()
     document.getElementById("numIngredient").textContent = ingredient.length;
 
 }
+var rank =[];
+function rankRecipe(){
 
-
+}

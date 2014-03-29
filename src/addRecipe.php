@@ -1,5 +1,13 @@
 <?php
 session_start();
+echo "hello";
+echo $_SESSION['userID'];
+$userID = $_SESSION['userID'];
+if(!isset($_SESSION['userID'])){
+
+$userID = 1;
+echo $userID;
+}
 
 ?>
 <!DOCTYPE html>
@@ -53,7 +61,7 @@ session_start();
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/index.html">Crowd Chef</a>
+      <a class="navbar-brand" href="/index.php">Crowd Chef</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -138,8 +146,8 @@ session_start();
           'description' => $_POST['recipe-description'],
           'tags' => $_POST['recipe-tags'],
           'directions' => $_POST['recipe-direction'],
-            'ingredients' => json_decode($_POST['ingredients']),
-          'userId' => '1'
+          'ingredients' => json_decode($_POST['ingredients']),
+          'userId' => $userID 
           );
         $opts = array( 'http' => 
           array(

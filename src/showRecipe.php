@@ -1,5 +1,14 @@
 <?php
 session_start();
+echo "hello";
+echo $_SESSION['userID'];
+$userID = $_SESSION['userID'];
+if(!isset($_SESSION['userID'])){
+
+$userID = 1;
+echo $userID;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +61,7 @@ session_start();
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/index.html">Crowd Chef</a>
+      <a class="navbar-brand" href="/index.php">Crowd Chef</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -105,7 +114,7 @@ session_start();
         $obj = json_decode($response);
         //get object from stdObj
         $recipeObj= $obj->result;
-       
+
         //Get all variables from recipe
 		$recipeID = $recipeObj->{'id'};
  		$recipeName = $recipeObj->{'name'};
@@ -114,13 +123,22 @@ session_start();
     	$directions = $recipeObj->{'directions'};
     	$ingredients = $recipeObj->{'ingredients'};
     	$createUser = $recipeObj->{'createUser'};
+    	$rateVotes = $recipeObj->{'rating'}->votes;
+    	$rateValue =$recipeObj->{'rating'}->value;
+    	$imgUrl = $recipeObj->{'imageUrl'};
+    	//echo "hello";
+    	//print_r($imgUrl);
         ?>
         <div class="col-xs-6 col-xs-offset-3">
         	<div class="panel panel-success">
 			  <div class="panel-heading">  	
 			    <h3 class="panel-title"><?echo $recipeName; ?> by <? echo $createUser; ?></h3> 
+
 			  </div>
 			  <div class="panel-body">
+			  	<?
+				echo '<img src='.$imgUrl.'>';
+				?>
 			  	 <p class="lead">Ingredients:</p><p> <? 
 	        		if ($ingredients !== NULL){
 	        		foreach($ingredients as $ingred ) {
@@ -147,16 +165,24 @@ session_start();
 			   <p class="lead"> Tags:</p> <p><?echo $tags; ?></p>
 			   <hr>
 			   <p class="lead"> Rate this recipe:</p> <p>
-
     			<!-- begin Rating -->
-					<fieldset class="rating">
-					    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Love this">5 stars</label>
-					    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-					    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
-					    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-					    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Bad">1 star</label>
+    			   <form method="POST" action="showRecipe.php?id=<?php echo $id;?>">
+					<fieldset class="rating" id="roro" >
+					    <input type="radio" id="star5" name="rating" value="5" onclick="this.form.submit()"/><label for="star5" title="Love this">5 stars</label>
+					    <input type="radio" id="star4" name="rating" value="4" onclick="this.form.submit()"/><label for="star4" title="Pretty good">4 stars</label>
+					    <input type="radio" id="star3" name="rating" value="3" onclick="this.form.submit()"/><label for="star3" title="Meh">3 stars</label>
+					    <input type="radio" id="star2" name="rating" value="2" onclick="this.form.submit()"/><label for="star2" title="Kinda bad">2 stars</label>
+					    <input type="radio" id="star1" name="rating" value="1" onclick="this.form.submit()"/><label for="star1" title="Bad">1 star</label>
 					</fieldset>
-				<!-- end Rating -->
+				</form>
+				<? //Update recipe with new rating
+				if(isset($_POST['rating'])){
+					 $starValue= $_POST['rating'];
+					  $response = file_get_contents('http://crowdchef.herokuapp.com/rateRecipe/'.$recipeID.'/'.$userID.'/'.$starValue);
+					 print_r($response);
+				}
+				?>
+
 				</p>
 			  </div>
 
