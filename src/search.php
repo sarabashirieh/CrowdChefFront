@@ -117,7 +117,21 @@ if(isset($_GET['field'])){
         //   );
         // $context = stream_context_create($opts);
 
-      $response = file_get_contents('http://crowdchef.herokuapp.com/search/'.$search.'/'.$field);
+      
+                    if(isset($_POST['complexQuery'])){
+                        $opts = array('http' =>
+                            array(
+                                'method' => 'POST',
+                                'header' => 'Content-type: application/x-www-form-urlencoded',
+                                'content' => $_POST['complexQuery']
+                            )
+                        );
+                        $context = stream_context_create($opts);
+                        $response = file_get_contents('http://crowdchef.herokuapp.com/complexSearch', false, $context);
+                    }
+                    else
+                        $response = file_get_contents('http://crowdchef.herokuapp.com/search/' . $search . '/' . $field);
+
         //suggestTerm
       //  $response = file_get_contents('http://crowdchef.herokuapp.com/suggestTerm/'.$_POST['search'].'/'.$_POST['field']);
 
