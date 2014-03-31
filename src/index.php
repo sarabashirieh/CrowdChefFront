@@ -115,7 +115,7 @@ if (isset($_POST['login'])) {
                         </p>
                         <div id="main-search">
 
-                            <div class="col-xs-9 col-xs-offset-2" >
+                            <div class="col-xs-10 col-xs-offset-2" >
                                 <div class="bool-slider true" style="float:left; margin-right:15px">
                                     <div class="inset">
                                         <div class="control"></div>
