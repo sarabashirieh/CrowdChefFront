@@ -7,13 +7,15 @@ if(isset($_POST['login'])){
       echo $pass= $_POST['password'];
        $response = file_get_contents('http://crowdchef.herokuapp.com/checkUser/'.$username.'/'.$pass);
        $obj = json_decode($response);
-print_r($obj);
+//print_r($obj);
   echo $userID=$obj->result;
-  echo "string";
+ // echo "string";
 $_SESSION['userID'] = $userID;
+$_SESSION['userName'] = $username;
+
 if(isset($_SESSION['userID'])){
-echo "I should give userID";
-  echo $_SESSION['userID'];
+echo "I should give userName";
+  echo $_SESSION['userName']; 
 }
 
 
@@ -87,8 +89,14 @@ echo "I should give userID";
 
       <ul class="nav navbar-nav navbar-right">
       	 <div class="button-group" id="button-nav">
-	       <a class="btn btn-success btn-sm" href="register/index.php">Sign up</a>
-           <a class="btn btn-info btn-sm" href="login/index.php">Login</a>
+          <? if(isset($_SESSION['userName'])){
+            echo 'Welcome '.$_SESSION['userName'];
+          }
+          else{
+	      echo' <a class="btn btn-success btn-sm" href="register/index.php">Sign up</a>
+           <a class="btn btn-info btn-sm" href="login/index.php">Login</a>';
+         }
+           ?>
 		</div>
       </ul>
     </div><!-- /.navbar-collapse -->

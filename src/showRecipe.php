@@ -1,12 +1,12 @@
 <?php
 session_start();
-echo "hello";
-echo $_SESSION['userID'];
+//echo "hello";
+//echo $_SESSION['userID'];
 $userID = $_SESSION['userID'];
 if(!isset($_SESSION['userID'])){
 
 $userID = 1;
-echo $userID;
+//echo $userID;
 }
 
 ?>
@@ -126,18 +126,28 @@ echo $userID;
     	$rateVotes = $recipeObj->{'rating'}->votes;
     	$rateValue =$recipeObj->{'rating'}->value;
     	$imgUrl = $recipeObj->{'imageUrl'};
+   		$rateVal= $recipeObj->{'rating'}->value;
+		//echo "st";
+		//echo $rateVal;
     	//echo "hello";
     	//print_r($imgUrl);
         ?>
         <div class="col-xs-6 col-xs-offset-3">
         	<div class="panel panel-success">
 			  <div class="panel-heading">  	
-			    <h3 class="panel-title"><?echo $recipeName; ?> by <? echo $createUser; ?></h3> 
+			    <h3 class="panel-title"><?echo $recipeName; ?> by <? echo $createUser; 
+
+//echo $rateVal;
+         // echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+
+              
+          ?></h3> 
 
 			  </div>
 			  <div class="panel-body">
 			  	<?
 				echo '<img src='.$imgUrl.'>';
+
 				?>
 			  	 <p class="lead">Ingredients:</p><p> <? 
 	        		if ($ingredients !== NULL){
