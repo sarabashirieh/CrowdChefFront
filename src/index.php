@@ -115,7 +115,7 @@ if (isset($_POST['login'])) {
                         </p>
                         <div id="main-search">
 
-                            <div class="col-xs-9 col-xs-offset-2" >
+                            <div class="col-xs-10 col-xs-offset-2" >
                                 <div class="bool-slider true" style="float:left; margin-right:15px">
                                     <div class="inset">
                                         <div class="control"></div>
@@ -135,13 +135,13 @@ if (isset($_POST['login'])) {
                                 </div>
                                 <div id="complex_search" class="hidden">
                                     <form action="/search.php" method="POST" class="form-inline">
-                                        <div id="search_container" style="width:25%; float:left"> 
-                                            <input id="input_search" type="search"  placeholder="Search recipes" name="search" class="form-control" style="width:93%; float:left;" onkeyup="showhint(this)"/>
-                                            <input id="input_from" type="number" placeholder="From" name="from" class="form-control hidden" style="width:45%; float:left; margin-right:3%"/>
-                                            <input  id="input_to"type="number" placeholder="To" name="to" class="form-control hidden" style="width:45%; float:left"/>
+                                        <div id="search_container" style="width:25%; float:left">
+                                            <input id="input_search" type="search"  placeholder="Search recipes" class="form-control" style="width:93%; float:left;"/>
+                                            <input id="input_from" type="number" min="1" max="5" placeholder="From" class="form-control hidden" style="width:45%; float:left; margin-right:3%" value="1"/>
+                                            <input  id="input_to"type="number" min="1" max="5" placeholder="To" class="form-control hidden" style="width:45%; float:left" value="1"/>
 
                                         </div>
-                                        <select id="select_field" class="form-control" name="field" onchange="onFieldSelect(this)">
+                                        <select id="select_field" class="form-control" onchange="onFieldSelect(this);">
                                             <option value="name">Title</option>
                                             <option value="description">Description</option>
                                             <option value="tag">Tag</option>
@@ -153,37 +153,34 @@ if (isset($_POST['login'])) {
                                             <option value="savory">Savoriness</option>
 
                                         </select>
-                                        <select id="select_occur" class="form-control" name="occur">
+                                        <select id="select_occur" class="form-control">
                                             <option value="should">Should</option>
                                             <option value="must">Must</option>
                                             <option value="not">Must not</option>
                                         </select>
-                                        <input type="button" class="btn btn-gray" value="Add" onclick="addCriterion()"/>
-                                        <input type="button" class="btn btn-gray"  value=" Reset" />
-
-
-
+                                        <input id="input_complex" class="hidden" name="complexQuery"/>
+                                        <input type="button" class="btn btn-gray" value="Add" onclick="addCriterion();"/>
+                                        <input type="button" class="btn btn-gray"  value="Reset" />
+                                        <input type="submit" class="btn btn-success" value=" Search"/>
                                     </form>
-
                                 </div>
-
                             </div>
                             <br/>  
-                            <br/>   
-                            <div id="search_criteria" class="col-xs-9 col-xs-offset-3 hidden" >
-                                <div style="color:white; width:50%; float:left">
-                                    Title: bla something very very lon gin heree yes<br/>
-                                    Title: bla <br/>
-                                    Title: bla <br/>
-                                    Title: bla <br/>
-                                    Title: bla <br/>
-                                    Title: bla <br/>
-                                    Sweetness: 1 to 4
+                            <br/>
+                            <div id="search_criteria" class="col-xs-10 col-xs-offset-3 hidden" style="color:white">
+                                <div style="float:left; font-weight: 500; margin-right:10px; border:1px solid #FFF">
+                                    Criteria 
                                 </div>
-                                <div style="color:white;float:left">
-                                    <input type="button" class="btn btn-success" value=" Search" style="margin-top: 10px"/>
-
+                                <div id="criteria_list" style="float:left">
+                                    None
                                 </div>
+                                <!--                                    Title: bla something very very lon gin heree yes<br/>
+                                                                    Title: bla <br/>
+                                                                    Title: bla <br/>
+                                                                    Title: bla <br/>
+                                                                    Title: bla <br/>
+                                                                    Title: bla <br/>
+                                                                    Sweetness: 1 to 4-->
                             </div>
                         </div>
                     </div>
@@ -195,6 +192,7 @@ if (isset($_POST['login'])) {
      </div>
  
         <script type="text/javascript">
+                                            var criteria = [];
                                             $(document).ready(function() {
                                                 $('.bool-slider .inset .control').click(function() {
                                                     if (!$(this).parent().parent().hasClass('disabled')) {
@@ -214,7 +212,7 @@ if (isset($_POST['login'])) {
                                                 });
                                             });
                                             function onFieldSelect(comp) {
-                                                if ($(comp).val() == 'sweet' || $(comp).val() == 'sour' || $(comp).val() == 'salty' || $(comp).val() == 'savory' || $(comp).val() == 'spicy')
+                                                if ($.inArray($(comp).val(), ["sweet", "sour", "salty", "spicy", "savory"]) >= 0)
                                                 {
                                                     $("#input_search").addClass('hidden');
                                                     $("#input_from").removeClass('hidden');
@@ -229,15 +227,30 @@ if (isset($_POST['login'])) {
 
                                             function addCriterion() {
                                                 var criterion = {};
-                                                if ($(comp).val() === 'sweet' || $(comp).val() === 'sour' || $(comp).val() === 'salty' || $(comp).val() === 'savory' || $(comp).val() === 'spicy')
+                                                criterion.field = $("#select_field").val();
+
+                                                if ($.inArray(criterion.field, ["sweet", "sour", "salty", "spicy", "savory"]) >= 0)
                                                 {
-                                                    $("#input_search").addClass('hidden');
-                                                    $("#range_container").removeClass('hidden');
+                                                    criterion.min = $("#input_from").val();
+                                                    criterion.max = $("#input_to").val();
                                                 }
                                                 else {
-                                                    $("#input_search").removeClass('hidden');
-                                                    $("#range_container").addClass('hidden');
+                                                    criterion.query = $("#input_search").val();
                                                 }
+                                                criterion.occur = $("#select_occur").val();
+
+                                                if (criteria.length < 1)
+                                                    $("#criteria_list").empty();
+                                                $("#criteria_list").append($('#select_field option:selected').text());
+                                                $("#criteria_list").append(" " + criterion.occur + ": ");
+                                                if (criterion.min && criterion.max)
+                                                    $("#criteria_list").append(criterion.min + " to " + criterion.max + "<br/>");
+                                                else
+                                                    $("#criteria_list").append(criterion.query + "<br/>");
+
+                                                criteria.push(criterion);
+                                                $("#input_complex").val(JSON.stringify(criteria));
+                                                console.log($("#input_complex").val());
                                             }
         </script>
 
