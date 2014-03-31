@@ -1,12 +1,12 @@
 <?php
 session_start();
-echo "hello";
-echo $_SESSION['userID'];
+//echo "hello";
+//echo $_SESSION['userID'];
 $userID = $_SESSION['userID'];
 if(!isset($_SESSION['userID'])){
 
 $userID = 1;
-echo $userID;
+//echo $userID;
 }
 
 ?>
@@ -104,38 +104,15 @@ echo $userID;
         //   );
         // $context = stream_context_create($opts);
 
-        $response = file_get_contents('http://crowdchef.herokuapp.com/search/'.$_POST['search'].'/'.$_POST['field']);
-       // print_r($response);
+      $response = file_get_contents('http://crowdchef.herokuapp.com/search/'.$_POST['search'].'/'.$_POST['field']);
+        //suggestTerm
+      //  $response = file_get_contents('http://crowdchef.herokuapp.com/suggestTerm/'.$_POST['search'].'/'.$_POST['field']);
+
+//echo"response";
+  //      print_r($response);
         $obj = json_decode($response);
-     
-      //   echo "vayy";
-      //   echo "search";
-      //   print_r($_POST['search']);
-      //   echo"response";
-      //   print_r($response);
-
-      // print_r($obj);
-
-        //print_r($obj);
-        //We get the name of the recipe and the name of the ingredients// the old way
-        // foreach($obj as $value) {
-        //   foreach($value as $valName => $val){
-        //     if($valName == 'name'){
-        //       //print_r($val);
-        //       echo $val;
-        //     }
-        //     if($valName == 'ingredients'){
-        //      $obj2 = $val;
-        //      foreach($obj2 as $key =>$ingred ) {
-        //         foreach($ingred as $keyIng => $ingredVal) {
-        //           if($keyIng == 'name') {
-        //             print_r($ingredVal);
-        //           }
-        //          }
-        //       }
-        //     }
-        //   }
-        // }
+    //    echo "onject";
+      //  print_r($obj);
 
         ?>
         <div class="col-xs-6 col-xs-offset-3">
@@ -150,14 +127,17 @@ echo $userID;
             <?php 
             foreach($obj as $valuee){
               foreach ($valuee as  $value1){
+                //print_r($valuee);
                 $res = $value1->{'rating'};
+
               echo '<tr>
               <td>';
               echo "<a href='showRecipe.php?id=".$value1->{'id'}."'>".$value1->{'name'}."</a>";
             echo'</td>
               <td> 
              ';
-//              print_r($value1->{'rating'}->value);
+
+//             print_r($value1->{'rating'}->value);
 // echo "string";
 //              print_r($res->value);
              if($res->value == 5){

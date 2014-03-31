@@ -1,12 +1,12 @@
 <?php
 session_start();
-echo "hello";
-echo $_SESSION['userID'];
+//echo "hello";
+//echo $_SESSION['userID'];
 $userID = $_SESSION['userID'];
 if(!isset($_SESSION['userID'])){
 
 $userID = 1;
-echo $userID;
+//echo $userID;
 }
 
 ?>

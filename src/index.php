@@ -7,13 +7,15 @@ if (isset($_POST['login'])) {
     echo $pass = $_POST['password'];
     $response = file_get_contents('http://crowdchef.herokuapp.com/checkUser/' . $username . '/' . $pass);
     $obj = json_decode($response);
-    print_r($obj);
+//print_r($obj);
     echo $userID = $obj->result;
-    echo "string";
+    // echo "string";
     $_SESSION['userID'] = $userID;
+    $_SESSION['userName'] = $username;
+
     if (isset($_SESSION['userID'])) {
-        echo "I should give userID";
-        echo $_SESSION['userID'];
+        echo "I should give userName";
+        echo $_SESSION['userName'];
     }
 
 
@@ -86,8 +88,14 @@ if (isset($_POST['login'])) {
 
                         <ul class="nav navbar-nav navbar-right">
                             <div class="button-group" id="button-nav">
-                                <a class="btn btn-success btn-sm" href="register/index.php">Sign up</a>
-                                <a class="btn btn-info btn-sm" href="login/index.php">Login</a>
+                                <?
+                                if (isset($_SESSION['userName'])) {
+                                    echo 'Welcome ' . $_SESSION['userName'];
+                                } else {
+                                    echo' <a class="btn btn-success btn-sm" href="register/index.php">Sign up</a>
+           <a class="btn btn-info btn-sm" href="login/index.php">Login</a>';
+                                }
+                                ?>
                             </div>
                         </ul>
                     </div><!-- /.navbar-collapse -->
@@ -103,8 +111,8 @@ if (isset($_POST['login'])) {
                         <p class = "text-center" style="color:white">
                             Share your unique recipes and become a famous chef!
                         </p>
-
                         <div id="main-search">
+
                             <div class="col-xs-9 col-xs-offset-2" >
                                 <div class="bool-slider true" style="float:left; margin-right:15px">
                                     <div class="inset">
@@ -129,7 +137,7 @@ if (isset($_POST['login'])) {
                                             <input id="input_search" type="search"  placeholder="Search recipes" name="search" class="form-control" style="width:93%; float:left;"/>
                                             <input id="input_from" type="number" placeholder="From" name="from" class="form-control hidden" style="width:45%; float:left; margin-right:3%"/>
                                             <input  id="input_to"type="number" placeholder="To" name="to" class="form-control hidden" style="width:45%; float:left"/>
-                                            
+
                                         </div>
                                         <select id="select_field" class="form-control" name="field" onchange="onFieldSelect(this)">
                                             <option value="name">Title</option>
@@ -147,14 +155,14 @@ if (isset($_POST['login'])) {
                                             <option value="should">Should</option>
                                             <option value="must">Must</option>
                                             <option value="not">Must not</option>
-</select>
+                                        </select>
                                         <input type="button" class="btn btn-gray" value="Add" onclick="addCriterion()"/>
                                         <input type="button" class="btn btn-gray"  value=" Reset" />
 
-                                        
+
 
                                     </form>
-                                    
+
                                 </div>
 
                             </div>
@@ -162,19 +170,19 @@ if (isset($_POST['login'])) {
                             <br/>   
                             <div id="search_criteria" class="col-xs-9 col-xs-offset-3 hidden" >
                                 <div style="color:white; width:50%; float:left">
-                                                Title: bla something very very lon gin heree yes<br/>
-                                                Title: bla <br/>
-                                                Title: bla <br/>
-                                                Title: bla <br/>
-                                                Title: bla <br/>
-                                                Title: bla <br/>
-                                                Sweetness: 1 to 4
-                                            </div>
+                                    Title: bla something very very lon gin heree yes<br/>
+                                    Title: bla <br/>
+                                    Title: bla <br/>
+                                    Title: bla <br/>
+                                    Title: bla <br/>
+                                    Title: bla <br/>
+                                    Sweetness: 1 to 4
+                                </div>
                                 <div style="color:white;float:left">
-                                               <input type="button" class="btn btn-success" value=" Search" style="margin-top: 10px"/>
-                           
-                                            </div>
-                                 </div>
+                                    <input type="button" class="btn btn-success" value=" Search" style="margin-top: 10px"/>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
