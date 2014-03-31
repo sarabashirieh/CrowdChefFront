@@ -109,7 +109,7 @@ $userID = 1;
       //  $response = file_get_contents('http://crowdchef.herokuapp.com/suggestTerm/'.$_POST['search'].'/'.$_POST['field']);
 
 //echo"response";
-  //      print_r($response);
+    print_r($response);
         $obj = json_decode($response);
     //    echo "onject";
       //  print_r($obj);
@@ -128,11 +128,12 @@ $userID = 1;
             foreach($obj as $valuee){
               foreach ($valuee as  $value1){
                 //print_r($valuee);
-                $res = $value1->{'rating'};
+
+                //$res = $value1->{'rating'};
 
               echo '<tr>
               <td>';
-              echo "<a href='showRecipe.php?id=".$value1->{'id'}."'>".$value1->{'name'}."</a>";
+              echo "<a href='/showRecipe.php?id=".$value1->{'id'}."'>".$value1->{'name'}."</a>";
             echo'</td>
               <td> 
              ';
