@@ -9,6 +9,19 @@ session_start();
 // //echo $userID;
 // }
 
+if(isset($_POST['search'])){
+  $search = $_POST['search'];
+}
+if(isset($_POST['field'])){
+  $field = $_POST['field'];
+}
+if(isset($_GET['search'])){
+  $search = $_GET['search'];
+}
+if(isset($_GET['field'])){
+  $field = $_GET['field'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,39 +117,64 @@ session_start();
         //   );
         // $context = stream_context_create($opts);
 
-      $response = file_get_contents('http://crowdchef.herokuapp.com/search/'.$_POST['search'].'/'.$_POST['field']);
+      $response = file_get_contents('http://crowdchef.herokuapp.com/search/'.$search.'/'.$field);
         //suggestTerm
       //  $response = file_get_contents('http://crowdchef.herokuapp.com/suggestTerm/'.$_POST['search'].'/'.$_POST['field']);
 
 //echo"response";
-    print_r($response);
+    // print_r($response);
         $obj = json_decode($response);
     //    echo "onject";
       //  print_r($obj);
 
         ?>
+
         <div class="col-xs-6 col-xs-offset-3">
+        <!--   <div class="alert alert-warning">Did you mean:</div> -->
+          <?php 
+          if(count($obj->{'result'}) == 0){
+            $helpvariable = true;
+          }
+          if(count($obj->{'result'}) == 0 && $helpvariable){
+          echo "<div class='alert alert-warning'>Did you mean:";
+          echo"<br />";
+            
+ $response2 = file_get_contents('http://crowdchef.herokuapp.com/checkTerm/'.$search.'/'.$field);
+    $obj2= json_decode($response2);
+    //print_r($obj2->{'result'});
+//  echo "";
+      foreach ($obj2->{'result'} as $value) {
+        echo "<a href=/search.php?search=".$value."&field=".$field.">".$value."</a><br />";
+      }
+      $helpvariable = false;
+echo "</div>";
+    //echo "did you mean ";
+  }
+  ?>
         <div class="panel panel-success">
        <!-- Default panel contents -->
         <div class="panel-heading">List of recipes</div>
         <table class="table " >
             <tr>
               <th>Title</th>
-              <th>Rating</th>
             </tr>
             <?php 
-            foreach($obj as $valuee){
-              foreach ($valuee as  $value1){
+
+
+            // if(count($obj->{'result'}) == 0)
+            // {
+            //     echo "ok";  
+            // }
+            foreach($obj->{'result'} as $valuee){
+              // foreach ($valuee as  $value1){
                 //print_r($valuee);
 
                 //$res = $value1->{'rating'};
 
               echo '<tr>
               <td>';
-              echo "<a href='/showRecipe.php?id=".$value1->{'id'}."'>".$value1->{'name'}."</a>";
-            echo'</td>
-              <td> 
-             ';
+              echo "<a href='/showRecipe.php?id=".$valuee->{'id'}."'>".$valuee->{'name'}."</a>";
+            echo'</td>';
 
 //             print_r($value1->{'rating'}->value);
 // echo "string";
@@ -171,10 +209,8 @@ session_start();
              // else{
              //  echo'No ranting available';
              // }
-             echo'
-              </td>
-            </tr>';
-              }
+             echo'</tr>';
+              // }
             }
             ?>
            <endforeach;>

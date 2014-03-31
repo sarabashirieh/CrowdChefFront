@@ -54,6 +54,8 @@ if (isset($_POST['login'])) {
         <script src="http://code.jquery.com/jquery-latest.min.js"
         type="text/javascript"></script><!-- Latest compiled and minified JavaScript -->
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
+
 
 
 
@@ -121,7 +123,7 @@ if (isset($_POST['login'])) {
                                 </div>
                                 <div id="basic_search">
                                     <form action="/search.php" method="POST" class="form-inline">
-                                        <input type="search"  placeholder="Search recipes" name="search" class="form-control">
+                                        <input type="search"  id="crowdchef-search" placeholder="Search recipes" name="search" class="form-control" onkeyup="showhint(this)" autocomplete="off" >
                                         <select class="form-control" name="field">
                                             <option value="name">Title</option>
                                             <option value="description">Description</option>
@@ -133,8 +135,8 @@ if (isset($_POST['login'])) {
                                 </div>
                                 <div id="complex_search" class="hidden">
                                     <form action="/search.php" method="POST" class="form-inline">
-                                        <div id="search_container" style="width:25%; float:left">
-                                            <input id="input_search" type="search"  placeholder="Search recipes" name="search" class="form-control" style="width:93%; float:left;"/>
+                                        <div id="search_container" style="width:25%; float:left"> 
+                                            <input id="input_search" type="search"  placeholder="Search recipes" name="search" class="form-control" style="width:93%; float:left;" onkeyup="showhint(this)"/>
                                             <input id="input_from" type="number" placeholder="From" name="from" class="form-control hidden" style="width:45%; float:left; margin-right:3%"/>
                                             <input  id="input_to"type="number" placeholder="To" name="to" class="form-control hidden" style="width:45%; float:left"/>
 
@@ -188,6 +190,10 @@ if (isset($_POST['login'])) {
                 </div>
             </div>
         </div>
+     <div id="search-suggest" class="col-xs-offset-4 col-xs-3">
+
+     </div>
+ 
         <script type="text/javascript">
                                             $(document).ready(function() {
                                                 $('.bool-slider .inset .control').click(function() {
@@ -234,5 +240,37 @@ if (isset($_POST['login'])) {
                                                 }
                                             }
         </script>
+
+            <script>
+function showhint(that)
+{
+
+  var str=that.value;
+var field = document.getElementById('select_field').value;
+var xmlhttp;
+if (str.length==0)
+  { 
+  document.getElementById("search-suggest").innerHTML="";
+  return;
+  }
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("search-suggest").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET","queryhint.php?search="+str+"&field="+field ,true);
+xmlhttp.send();
+}
+</script>
     </body>
 </html>
