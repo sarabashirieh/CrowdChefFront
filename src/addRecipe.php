@@ -73,7 +73,6 @@ $userID = 1;
       </ul> -->
       <ul class="nav navbar-nav navbar-right">
       	 <div class="button-group" id="button-nav">
-          <a class="btn" href="#">Just for you</a>
           <a class="btn" href="/play.php">Play</a>
           <a class="btn" href="#">Profile</a>
 		</div>
