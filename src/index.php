@@ -129,6 +129,7 @@ if (isset($_POST['login'])) {
                                             <option value="description">Description</option>
                                             <option value="tag">Tag</option>
                                             <option value="ingredient">Ingredients</option>
+                                            <option value="directions">Directions</option>
                                         </select>
                                         <input type="submit" class="btn btn-success" href="search.php" id="search-rec" value=" Search" />
                                     </form>
