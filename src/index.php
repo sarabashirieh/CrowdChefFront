@@ -132,8 +132,10 @@ if (isset($_POST['login'])) {
                                         </select>
                                         <input type="submit" class="btn btn-success" href="search.php" id="search-rec" value=" Search" />
                                     </form>
+                                   <div id="search-suggest" class="col-md-4" style="margin-left:-10px;"> </div>
+               
                                 </div>
-                                <div id="complex_search" class="hidden">
+                              <div id="complex_search" class="hidden">
                                     <form action="/search.php" method="POST" class="form-inline">
                                         <div id="search_container" style="width:25%; float:left">
                                             <input id="input_search" type="search"  placeholder="Search recipes" class="form-control" style="width:93%; float:left;"/>
@@ -181,15 +183,14 @@ if (isset($_POST['login'])) {
                                                                     Title: bla <br/>
                                                                     Title: bla <br/>
                                                                     Sweetness: 1 to 4-->
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="search-suggest" class="col-xs-offset-4 col-xs-3 margin-top" >
-
-        </div>
+  
 
         <script type="text/javascript">
                                             var criteria = [];
