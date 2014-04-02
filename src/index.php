@@ -163,7 +163,7 @@ if (isset($_POST['login'])) {
                                         </select>
                                         <input id="input_complex" class="hidden" name="complexQuery"/>
                                         <input type="button" class="btn btn-gray" value="Add" onclick="addCriterion();"/>
-                                        <input type="button" class="btn btn-gray"  value="Reset" />
+                                        <input type="button" class="btn btn-gray"  value="Reset" onclick="resetCriteria();"/>
                                         <input type="submit" class="btn btn-success" value=" Search"/>
                                     </form>
                                 </div>
@@ -253,6 +253,12 @@ if (isset($_POST['login'])) {
                                                 criteria.push(criterion);
                                                 $("#input_complex").val(JSON.stringify(criteria));
                                                 console.log($("#input_complex").val());
+                                            }
+                                            
+                                            function resetCriteria(){
+                                                criteria = [];
+                                                $("#criteria_list").empty().append("None");
+                                                $("#input_complex").val(JSON.stringify(criteria));
                                             }
         </script>
         <script>
